@@ -8,7 +8,7 @@ function Footer() {
                 <div className="">
                     <strong>About</strong>
                     <Link href="/about"><p className="text-gray-600 cursor-pointer">Our team</p></Link>
-                    <Link href="#"><p className="text-gray-600 cursor-pointer">Github</p></Link>
+                    <Link href="https://github.com/Nashex/fundify"><p className="text-gray-600 cursor-pointer">Github</p></Link>
                 </div>
             </div>
         </div>
