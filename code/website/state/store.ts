@@ -20,11 +20,12 @@ const useStore = create((set) => ({
         set((state: any) => {
             const charities = state.charities.map((o: Charity) => {
                 if (o.id === charity.id) {
+                    const tiers = o.tiers || [];
                     return ({
                         ...o,
                         tiers: [
                             tier,
-                            ...o.tiers
+                            ...tiers
                         ]
                     })
                 }
