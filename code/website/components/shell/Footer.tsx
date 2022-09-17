@@ -7,7 +7,7 @@ function Footer() {
                 <h1 className="font-medium text-3xl">fundify</h1>
                 <div className="">
                     <strong>About</strong>
-                    <Link href="#"><p className="text-gray-600 cursor-pointer">Our team</p></Link>
+                    <Link href="/about"><p className="text-gray-600 cursor-pointer">Our team</p></Link>
                     <Link href="#"><p className="text-gray-600 cursor-pointer">Github</p></Link>
                 </div>
             </div>
