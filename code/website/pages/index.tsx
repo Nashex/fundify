@@ -41,7 +41,7 @@ const Home: NextPage = () => {
       <div className="">
         <div className="max-w-5xl mx-auto flex flex-col items-center py-20">
           <h1 className="text-8xl font-bold text-green-300 mb-4"><span className="text-green-500">Jumpstart</span> your charity.</h1>
-          <h2 className="text-2xl text-slate-700 my-5">Donations don't have to be hard. Quickly setup a fully fledged donation tool for your charity with advanced analytics, sleek integration, and no cost.</h2>
+          <h2 className="text-2xl text-slate-700 my-5">Donations dont have to be hard. Quickly setup a fully fledged donation tool for your charity with advanced analytics, sleek integration, and no cost.</h2>
         </div>
       </div>
 
@@ -59,14 +59,14 @@ const Home: NextPage = () => {
         }
       </div>
 
-      <div className="max-w-5xl mx-auto py-20">
+      <div className="max-w-5xl mx-auto pt-20">
         <div className="flex flex-row justify-center">
-          <Link href={"#"}>
+          <Link href={"/getstarted"}>
             <div className="bg-gradient-to-tr from-green-400 to-green-500 flex flex-row px-5 py-3 rounded items-center mr-4 cursor-pointer hover:shadow-md">
               <p className="px-2 text-white text-2xl">Get Started</p>
             </div>
           </Link>
-          <Link href={"#"}>
+          <Link href={"https://github.com/Nashex/fundify"}>
             <div className="bg-gray-800 flex flex-row px-5 py-3 rounded items-center mr-4 cursor-pointer hover:shadow-md">
               <TbBrandGithub color="white" size={30} />
               <p className="px-2 text-white text-2xl">Github</p>
