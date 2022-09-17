@@ -16,11 +16,15 @@ function Header({ className }: Props) {
                     <h1 className="font-medium text-3xl cursor-pointer">fundify</h1>
                 </Link>
 
+                <Link href={"/explore"}>
+                    <span className="ml-auto mr-6 font-medium text-lg hover:drop-shadow cursor-pointer">Explore</span>
+                </Link>
+
                 {
                     user ? (
                         <>
                             <Link href={"/dashboard"}>
-                                <span className="ml-auto mr-6 font-medium text-lg hover:drop-shadow cursor-pointer">Dashboard</span>
+                                <span className="mr-6 font-medium text-lg hover:drop-shadow cursor-pointer">Dashboard</span>
                             </Link>
                             <button
                                 className=" bg-green-400 px-4 py-2 rounded-full hover:shadow-lg"
