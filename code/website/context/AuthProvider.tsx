@@ -44,7 +44,7 @@ export default function AuthProvider({ children }: Props): ReactElement {
             const cred = await signInWithEmailAndPassword(auth, email, password)
             setIsLoading(true);
             const { user: userAuth } = cred;
-            setUser(user);
+            setUser(userAuth);
             setIsLoading(false);
         }
 
