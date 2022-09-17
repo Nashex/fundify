@@ -26,7 +26,7 @@ function Dashboard() {
         setLoading(true);
         if (!user?.uid) return;
         const profile = await getDoc(doc(firestore, "users", user.uid));
-        const profileData = profile.data() as Profile;
+        const profileData = profile.data() as Profile || user;
         const charityIds = profileData.charities || [];
 
         const charityRef = collection(firestore, "charities");
