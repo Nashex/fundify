@@ -64,7 +64,7 @@ export default function AuthProvider({ children }: Props): ReactElement {
         setUser(undefined);
     }
 
-    //if (loading) return <></>;
+    if (loading) return <></>;
 
     return (
         <AuthContext.Provider value={{ loading, user, logIn, register, signOut: logOut }}>

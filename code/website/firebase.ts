@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from '@firebase/auth';
+import { getFirestore } from '@firebase/firestore';
 
 export const app = initializeApp({
     apiKey:process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -11,4 +12,5 @@ export const app = initializeApp({
     measurementId:process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
  });
 
+ export const firestore = getFirestore();
  export const auth = getAuth();
