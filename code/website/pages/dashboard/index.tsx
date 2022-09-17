@@ -65,6 +65,7 @@ function Dashboard() {
                                     </CharityCard>
                                 )
                             })}
+                            <CreateCharity />
                         </>
                     ) : (
                         <CharityCard>
@@ -72,7 +73,6 @@ function Dashboard() {
                         </CharityCard>
                     )
                 }
-                <CreateCharity />
             </div>
 
             <div className="flex flex-row my-10 min-h-[200px] items-stretch">

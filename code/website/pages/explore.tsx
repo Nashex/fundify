@@ -1,9 +1,21 @@
 import React, { ReactElement, useState } from 'react'
 import Footer from '../components/shell/Footer'
 import Header from '../components/shell/Header'
-import { Menu, Button, Text } from '@mantine/core';
+import { Menu, Button, Text, Autocomplete, createStyles } from '@mantine/core';
 import CharityScroll from '../components/shell/CharityScroll'
 import { FaChevronDown, FaChevronRight } from "react-icons/fa";
+import { IconSearch } from '@tabler/icons';
+
+const useStyles = createStyles((theme) => ({
+	search: {
+	  [theme.fn.smallerThan('xs')]: {
+		display: 'none',
+	  },
+	  marginRight: 80,
+	  marginLeft: 80,
+	  width: "90%",
+	},
+  }));
 
 
 interface Props {
@@ -80,6 +92,7 @@ const charities = [
 export default function Explore({ }: Props): ReactElement {
 	const [drop, setDrop] = useState("week");
 	const [flip, setFlip] = useState(false);
+	const { classes } = useStyles();
 	return (
 		<div>
 			<Header />
@@ -123,6 +136,12 @@ export default function Explore({ }: Props): ReactElement {
 				</div>
 				<h1 className="text-3xl font-bold text-gray-800 mt-10 mb-2 px-10">Fastest growing charities of the past <button className="text-green-400">month</button></h1>
 				<h1 className="text-3xl font-bold text-gray-800 mt-10 mb-2 px-10">A list of all charities that use our site</h1>
+				<Autocomplete
+				className={classes.search}
+				placeholder="Search"
+				icon={<IconSearch size={16} stroke={1.5} />}
+				data={[]}
+			/>
 				<div className="flex flex-row px-10 overflow-x-scroll w-fit">
 					{
 						charities.map((o, i) => {

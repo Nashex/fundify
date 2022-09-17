@@ -1,10 +1,11 @@
-import { Button, Modal, NumberInput, Switch, Textarea, TextInput } from '@mantine/core'
+import { Button, Modal, Notification, NumberInput, Switch, Textarea, TextInput } from '@mantine/core'
 import React, { ReactElement, useState } from 'react'
 import { useAuth } from '../../context/AuthProvider'
 import { Charity } from '../../types/types'
 import { collection, addDoc } from 'firebase/firestore'
 import { firestore } from '../../firebase'
 import useStore from '../../state/store'
+import { TbX } from 'react-icons/tb'
 
 interface Props {
 	id?: string,
@@ -22,9 +23,9 @@ export default function TierDashboard({ id, charity, name, desc, amount, type, c
 	const { user } = useAuth();
 	const [open, setOpen] = useState(false);
 	const [form, setForm] = useState<any>({
-		name,
-		desc,
-		amount,
+		name: create ? "" : name,
+		desc: create ? "" : desc,
+		amount: create ? "" : amount,
 		type: type == "monthly"
 	});
 	const [error, setError] = useState("");
@@ -70,6 +71,13 @@ export default function TierDashboard({ id, charity, name, desc, amount, type, c
 				size="md"
 				title={<h1 className="text-3xl font-medium">Add a tier to <span className="text-green-400">{charity.name}</span></h1>}
 			>
+				{
+					error && (
+						<Notification icon={<TbX size={18} />} color="red">
+							{error}
+						</Notification>
+					)
+				}
 				<TextInput
 					placeholder="Patron"
 					label="Tier Name"

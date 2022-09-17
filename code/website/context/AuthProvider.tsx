@@ -1,6 +1,7 @@
 import { createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword, getAuth, UserCredential, updateProfile } from '@firebase/auth';
+import { collection, addDoc } from 'firebase/firestore';
 import React, { ReactElement, useState, useContext, useEffect } from 'react'
-import { auth } from '../firebase';
+import { auth, firestore } from '../firebase';
 
 interface Props {
     children: Array<ReactElement> | ReactElement;
@@ -42,8 +43,8 @@ export default function AuthProvider({ children }: Props): ReactElement {
         async (email, password) => {
             const cred = await signInWithEmailAndPassword(auth, email, password)
             setIsLoading(true);
-            const { user } = cred;
-            setUser(user);
+            const { user: userAuth } = cred;
+            setUser(userAuth);
             setIsLoading(false);
         }
 
@@ -55,7 +56,13 @@ export default function AuthProvider({ children }: Props): ReactElement {
             await updateProfile(user, {
                 displayName
             });
+
             setUser(user);
+
+            await addDoc(collection(firestore, "users", user.uid), {
+                charities: []
+            });
+
             setIsLoading(false); 
         }
 
