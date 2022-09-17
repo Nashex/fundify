@@ -30,14 +30,14 @@ export default function CardCarousel({ }: Props) {
                     backgroundColor: 'grey',
                     fill: 'grey',
                     opacity: 100,
-                    
+
                     '&[data-active]': {
                         width: 40,
                     },
                 }
             }}
         >
-            <Carousel.Slide><DonationTier /></Carousel.Slide>
+            <Carousel.Slide><DonationTier title = "Tier One" description = "Free one laborer from a corporation for indetured servitude." amount = "5"/></Carousel.Slide>
             <Carousel.Slide>2</Carousel.Slide>
             <Carousel.Slide>3</Carousel.Slide>
             <Carousel.Slide>4</Carousel.Slide>
