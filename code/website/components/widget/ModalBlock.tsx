@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Modal, Button, Group } from '@mantine/core';
 import TimeToggle from './TimeToggle';
 import CardCarousel from './CardCarousel';
+import CardDisplay from './CardDisplay';
 
 type Props = {
     buttonText: string,
@@ -20,13 +21,15 @@ export default function ModalBlock({ buttonText }: Props) {
                 centered
                 title={
                     <div>
-                        <TimeToggle recurring = {recurring} setRecurring = {setRecurring}/>
+                        <TimeToggle recurring={recurring} setRecurring={setRecurring} />
                     </div>
                 }
-                size = {"xl"}
+                size={"xl"}
             >
                 {
-                    <CardCarousel />
+                    <>
+                        <CardDisplay />
+                    </>
                 }
             </Modal>
             <div className="w-full">
