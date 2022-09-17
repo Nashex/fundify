@@ -3,11 +3,14 @@ import Footer from '../components/shell/Footer'
 import Header from '../components/shell/Header'
 import { Menu, Button, Text } from '@mantine/core';
 import CharityScroll from '../components/shell/CharityScroll'
+import { FaChevronDown, FaChevronRight } from "react-icons/fa";
 
 
 interface Props {
 
 }
+
+const options = ["week", "month", "year"]
 
 const charities = [
 	{
@@ -48,7 +51,7 @@ const charities = [
 			},
 			totalRaised: 58943759.23,
 			totalDonators: 1200000,
-			
+
 		}
 	},
 	{
@@ -69,29 +72,39 @@ const charities = [
 			},
 			totalRaised: 2342432.69,
 			totalDonators: 34823892,
-			
+
 		}
 	}
 ]
 
 export default function Explore({ }: Props): ReactElement {
 	const [drop, setDrop] = useState("week");
+	const [flip, setFlip] = useState(false);
 	return (
 		<div>
 			<Header />
 			<div className="max-w-7xl mx-auto text-center">
-					<h1 className="text-3xl font-bold text-gray-800 mb-10 px-10 mt-10">Our top picks for the 
+				<h1 className="text-3xl font-bold text-gray-800 mb-2 px-10 mt-10">Our top picks for the 
 					<Menu width={100} >
 						<Menu.Target>
-							<Button className="text-green-400 text-3xl font-bold w-fit">{drop}</Button>
+							<Button onClick={() => setFlip(!flip)} className="text-green-400 text-3xl font-bold w-fit px-2 h-10 hover:bg-slate-100"> {drop} {
+								
+									flip ? <FaChevronDown size={20} className="mt-3"/> : <FaChevronRight size={20} className="mt-2"/>
+								
+							} </Button> 
 						</Menu.Target>
-
 						<Menu.Dropdown className="border-0 font-bold">
-							<Menu.Item className="text-2xl text-center" onClick={() => setDrop("week")}>week</Menu.Item>
-							<Menu.Divider/>
-							<Menu.Item className="text-2xl text-center"  onClick={() => setDrop("month")}>month</Menu.Item>
-							<Menu.Divider/>
-							<Menu.Item className="text-2xl text-center"  onClick={() => setDrop("year")}>year</Menu.Item>
+							{
+								options.map((o) => {
+									return (
+										<div>
+											{o != drop ?
+												<Menu.Item className="text-2xl text-center" onClick={() => setDrop(o)}>{o}</Menu.Item>
+											: null}
+										</div>
+									)
+								})
+							}
 						</Menu.Dropdown>
 					</Menu>
 				</h1>
@@ -108,8 +121,8 @@ export default function Explore({ }: Props): ReactElement {
 						})
 					}
 				</div>
-				<h1 className="text-3xl font-bold text-gray-800 mb-10 px-10">Fastest growing charities of the past <button className="text-green-400">month</button></h1>
-				<h1 className="text-3xl font-bold text-gray-800 mb-10 px-10">A list of all charities that use our site</h1>
+				<h1 className="text-3xl font-bold text-gray-800 mt-10 mb-2 px-10">Fastest growing charities of the past <button className="text-green-400">month</button></h1>
+				<h1 className="text-3xl font-bold text-gray-800 mt-10 mb-2 px-10">A list of all charities that use our site</h1>
 				<div className="flex flex-row px-10 overflow-x-scroll w-fit">
 					{
 						charities.map((o, i) => {
