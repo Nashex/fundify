@@ -1,10 +1,14 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useState, useEffect } from 'react'
 import Footer from '../components/shell/Footer'
 import Header from '../components/shell/Header'
 import { Menu, Button, Text, Autocomplete, createStyles } from '@mantine/core';
 import CharityScroll from '../components/shell/CharityScroll'
 import { FaChevronDown, FaChevronRight } from "react-icons/fa";
 import { IconSearch } from '@tabler/icons';
+import { Charity, Profile, Tier } from '../types/types';
+import { doc, documentId, getDoc, getDocs, query, where, collection } from 'firebase/firestore';
+import { firestore } from '../firebase';
+import useStore from '../state/store';
 
 const useStyles = createStyles((theme) => ({
 	search: {
@@ -92,7 +96,28 @@ const charities = [
 export default function Explore({ }: Props): ReactElement {
 	const [drop, setDrop] = useState("week");
 	const [flip, setFlip] = useState(false);
+	const charities: Charity[] = useStore((state: any) => state.charities);
+	const setCharities = useStore((state: any) => state.setCharities);
 	const { classes } = useStyles();
+
+	useEffect(() => {
+		getCharities();
+	}, [])
+
+	const getCharities = async () => {
+		const charityRef = collection(firestore, "charities");
+		const qS = await getDocs(charityRef);
+		const res: Charity[] = [];
+		qS.forEach(async doc => {
+			const data = doc.data();
+			res.push({
+				id: doc.id,
+				tiers: [],
+				...data
+			})
+		});
+	}
+
 	return (
 		<div>
 			<Header />
