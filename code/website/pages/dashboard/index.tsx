@@ -29,10 +29,12 @@ function Dashboard() {
         const profileData = profile.data() as Profile || user;
         const charityIds = profileData.charities || [];
 
-        const charityRef = collection(firestore, "charities");
-        const qS = await getDocs(query(charityRef, where(documentId(), "in", charityIds)));
         const res: Charity[] = [];
-        qS.forEach(doc => res.push({ id: doc.id, ...doc.data() }));
+        if (res.length) {
+            const charityRef = collection(firestore, "charities");
+            const qS = await getDocs(query(charityRef, where(documentId(), "in", charityIds)));
+            qS.forEach(doc => res.push({ id: doc.id, ...doc.data() }));
+        }
         setCharities(...res);
         setLoading(false);
     }
