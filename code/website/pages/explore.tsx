@@ -5,6 +5,7 @@ import { Menu, Button, Text, Autocomplete, createStyles } from '@mantine/core';
 import CharityScroll from '../components/shell/CharityScroll'
 import { FaChevronDown, FaChevronRight } from "react-icons/fa";
 import { IconSearch } from '@tabler/icons';
+import { TbChevronDown } from 'react-icons/tb';
 
 const useStyles = createStyles((theme) => ({
 	search: {
@@ -102,7 +103,7 @@ export default function Explore({ }: Props): ReactElement {
 						<Menu.Target>
 							<Button onClick={() => setFlip(!flip)} className="text-green-400 text-3xl font-bold w-fit px-2 h-10 hover:bg-slate-100"> {drop} {
 								
-									flip ? <FaChevronDown size={20} className="mt-3"/> : <FaChevronRight size={20} className="mt-2"/>
+									<TbChevronDown size={20} className={`mt-2 self-start ${!flip ? "rotate-90" : ""} transition-all`}/>
 								
 							} </Button> 
 						</Menu.Target>
