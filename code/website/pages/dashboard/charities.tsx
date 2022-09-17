@@ -38,7 +38,7 @@ export default function Charities({ }: Props): ReactElement {
 			res.push({
 				id: doc.id,
 				tiers: [],
-				...data
+				...data as any
 			})
 		});
 
@@ -46,7 +46,7 @@ export default function Charities({ }: Props): ReactElement {
 			const tierQs = await getDocs(collection(firestore, "charities", charityDoc.id, "tiers"));
 			tierQs.forEach(tierDoc => {
 				charityDoc.tiers = [
-					tierDoc.data(),
+					tierDoc.data() as any,
 					...charityDoc.tiers,
 				]
 			});
