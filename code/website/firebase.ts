@@ -1,10 +1,7 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
-import AuthProvider from '../context/AuthProvider';
 import { initializeApp } from "firebase/app";
+import { getAuth } from '@firebase/auth';
 
-// Initialize firebase
-initializeApp({
+export const app = initializeApp({
     apiKey:process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
     authDomain:process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
     projectId:process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
@@ -14,12 +11,4 @@ initializeApp({
     measurementId:process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
  });
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <AuthProvider>
-      <Component {...pageProps} />
-    </AuthProvider>
-  );
-}
-
-export default MyApp
+ export const auth = getAuth();
