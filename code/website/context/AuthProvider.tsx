@@ -57,12 +57,12 @@ export default function AuthProvider({ children }: Props): ReactElement {
                 displayName
             });
 
+            setUser(user);
 
             await addDoc(collection(firestore, "users", user.uid), {
                 charities: []
             });
 
-            setUser(user);
             setIsLoading(false); 
         }
 
