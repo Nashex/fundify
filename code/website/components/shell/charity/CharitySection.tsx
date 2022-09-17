@@ -11,7 +11,7 @@ export default function CharitySection({ charity }: Props): ReactElement {
 		<div className="mb-6">
 			<h1 className="text-2xl font-medium">{charity.name}</h1>
 			<p className="text-xl text-gray-400">{charity.desc}</p>
-			<div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 my-2 space-x-4">
+			<div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 my-2 space-x-4">
 				<TierDashboardCard
 					charity={charity}
 					name="Patron"
