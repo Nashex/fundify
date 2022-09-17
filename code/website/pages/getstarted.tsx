@@ -58,9 +58,11 @@ function GetStarted() {
         register(name, email, password).then(() => {
             // Do something
         }).catch((e) => {
+            console.log(e);
             setError(e.message);
             setTimeout(() => setError(false), 2500);
         });
+        window.location.href = '/dashboard';
     }
 
     return (
