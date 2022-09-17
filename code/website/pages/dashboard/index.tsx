@@ -1,11 +1,10 @@
 import Header from '../../components/shell/Header';
 import Navbar from '../../components/shell/Navbar';
 import { AppShell, Header as MantineHeader } from '@mantine/core';
-import { TbPlus } from 'react-icons/tb';
 import CreateCharity from '../../components/shell/charity/CreateCharity';
 import useStore from './../../state/store';
 import { useEffect } from 'react';
-import { doc, documentId, Firestore, getDoc, getDocs, query, where } from 'firebase/firestore';
+import { doc, documentId, getDoc, getDocs, query, where } from 'firebase/firestore';
 import { firestore } from '../../firebase';
 import { useAuth } from '../../context/AuthProvider';
 import { collection } from 'firebase/firestore';
@@ -33,7 +32,6 @@ function Dashboard() {
         const qS = await getDocs(query(charityRef, where(documentId(), "in", charityIds)));
         const res: Charity[] = [];
         qS.forEach(doc => res.push({ id: doc.id, ...doc.data() }));
-        console.log(res)
         setCharities(...res);
         setLoading(false);
     }

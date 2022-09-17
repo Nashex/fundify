@@ -1,7 +1,8 @@
 export interface Charity {
+    ownerId?: string
     id: string,
     name: string,
-    description: string,
+    desc: string,
 }
 
 export interface Profile {
