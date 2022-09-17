@@ -3,22 +3,24 @@ import Header from '../components/shell/Header';
 import { TbHeartHandshake, TbChevronsUp, TbChartArrowsVertical, TbBrandGithub, TbUsers } from 'react-icons/tb';
 import Link from 'next/link';
 import Footer from '../components/shell/Footer';
+import ModalBlock from '../components/widget/ModalBlock';
+import { Modal } from '@mantine/core';
 
 const ITEMS = [
   {
     icon: <TbHeartHandshake color="white" size={20} />,
     title: "Free to use.",
-    desc: "Someone write some stuff about this here."
+    desc: "It costs no money to use this."
   },
   {
     icon: <TbChevronsUp color="white" size={20} />,
     title: "Easy to implement",
-    desc: "Someone write some stuff about this here."
+    desc: "It is not difficult to implement."
   },
   {
     icon: <TbChartArrowsVertical color="white" size={20} />,
     title: "Optimized to your customers.",
-    desc: "Someone write some stuff about this here."
+    desc: "It is not optimized for people who aren't your customers."
   },
 ];
 
@@ -124,6 +126,7 @@ const Home: NextPage = () => {
             }
           </div>
         </div>
+        <ModalBlock buttonText='Dontnate'/>
       </div>
 
       <Footer />
