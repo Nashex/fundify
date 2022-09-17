@@ -24,7 +24,7 @@ function Login() {
         const { email, password } = form;
         logIn(email, password).then(() => {
             router.push({
-                pathname: '/'
+                pathname: '/dashboard'
             })
         }).catch((e) => {
             setError(e.message);
