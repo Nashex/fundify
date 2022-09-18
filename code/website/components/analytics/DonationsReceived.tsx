@@ -33,7 +33,7 @@ export default function DonationsReceived({ charity, time, average }: Props) {
     }, [])
 
     return (
-        <div className="flex flex-col bg-white border-[.5px] border-slate-400 rounded-md p-2 mb-1">
+        <div className="flex flex-col bg-white border-[.5px] border-slate-400 rounded-md p-2 mb-1 mr-1">
             <div className="flex justify-center w-full">
                 <h1 className="text-lg">{timetext}</h1>
             </div>
