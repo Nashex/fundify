@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Charity } from '../../types/types'
-import { FiMinusSquare, FiPlusSquare } from 'react-icons/Fi'
+import { FiMinusSquare, FiPlusSquare } from 'react-icons/fi'
 import { faker } from '@faker-js/faker';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Menu, Button, Text } from '@mantine/core';
