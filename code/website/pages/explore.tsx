@@ -79,8 +79,6 @@ export default function Explore({ }: Props): ReactElement {
 			});
 		}
 
-		console.log(res);
-
 		setCharities(res);
 		setLoading(false);
 	}
