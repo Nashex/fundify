@@ -29,7 +29,6 @@ function CreateCharity() {
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
-        console.log(form);
         if (!form["name"] || !form["desc"]) {
             setError("Missing fields.");
             return setTimeout(() => setError(""), 2500);
@@ -51,7 +50,7 @@ function CreateCharity() {
 
         await updateDoc(doc(firestore, "users", uid), {
             charities: arrayUnion(charity.id)
-        })
+        });
         close();
     }
 

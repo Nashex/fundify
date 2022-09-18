@@ -23,20 +23,18 @@ function Dashboard() {
     }, [])
 
     const getProfile = async () => {
-        setLoading(true);
         if (!user?.uid) return;
         const profile = await getDoc(doc(firestore, "users", user.uid));
         const profileData = profile.data() as Profile || user;
         const charityIds = profileData.charities || [];
 
         const res: Charity[] = [];
-        if (res.length) {
+        if (charityIds.length) {
             const charityRef = collection(firestore, "charities");
             const qS = await getDocs(query(charityRef, where(documentId(), "in", charityIds)));
             qS.forEach(doc => res.push({ id: doc.id, ...doc.data() as any }));
         }
         setCharities(...res);
-        setLoading(false);
     }
 
     return (
