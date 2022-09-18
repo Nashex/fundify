@@ -18,8 +18,9 @@ export default function CharityAnalytics({ charity }: Props) {
                     <DonationsReceived charity={charity} time='all-time' average={true} />
                 </div>
                 <div className = "flex flex-row my-1">
-                    <LinearOverTime charity = {charity} title = 'Donations Over Time' y = 'donation' average = {false}/>
-                    <LinearOverTime charity = {charity} title = 'Dollars Over Time' y = 'dollars' average = {false}/>
+                    <LinearOverTime charity = {charity} title = '# Donations Over Time' y = 'donation' average = {false}/>
+                    <LinearOverTime charity = {charity} title = '# Dollars Over Time' y = 'dollars' average = {false}/>
+                    <LinearOverTime charity = {charity} title = 'Avg. Gift Over Time' y = 'dollars' average = {true}/>
                 </div>
                 <div className = "flex flex-row my-1">
                     <TierBreakdown charity = {charity} title = 'Breakdown of Donation Tiers' y = 'donation' average = {false}/>
