@@ -29,7 +29,7 @@ interface Props {
 
 const options = ["week", "month", "year"]
 
-const timeNumber = new Map([["week", 7], ["month", 30], ["year", 365]])
+const timeNumber: Map<string, number> = new Map([["week", 7], ["month", 30], ["year", 365]])
 
 export default function Explore({ }: Props): ReactElement {
 	const [drop, setDrop] = useState("week");
@@ -97,9 +97,9 @@ export default function Explore({ }: Props): ReactElement {
 						</Menu.Target>
 						<Menu.Dropdown className="border-0 font-bold">
 							{
-								options.map((o) => {
+								options.map((o, i) => {
 									return (
-										<div>
+										<div key={i}>
 											{o != drop ?
 												<Menu.Item className="text-2xl text-center" onClick={() => setDrop(o)}>{o}</Menu.Item>
 												: null}
@@ -116,7 +116,7 @@ export default function Explore({ }: Props): ReactElement {
 							let totalD = o.donators?.filter(onlyUnique);
 							let totalR = o.payments?.reduce((a, b) => b ? +a + b?.amount : +a, 0);
 							let pastDate = new Date();
-							pastDate.setDate(today.getDate() - timeNumber.get(drop));
+							pastDate.setDate(today.getDate() - (timeNumber as unknown as any).get(drop));
 							let ActiveDonators = o.payments?.reduce((a, b) => b && b.date > pastDate ? +a + 1 : +a, 0)
 							if (ActiveDonators / totalD?.length > 0.6) {
 								return (
@@ -139,9 +139,9 @@ export default function Explore({ }: Props): ReactElement {
 						</Menu.Target>
 						<Menu.Dropdown className="border-0 font-bold">
 							{
-								options.map((o) => {
+								options.map((o, i) => {
 									return (
-										<div>
+										<div key={i}>
 											{o != drop2 ?
 												<Menu.Item className="text-2xl text-center" onClick={() => setDrop2(o)}>{o}</Menu.Item>
 												: null}
@@ -158,7 +158,7 @@ export default function Explore({ }: Props): ReactElement {
 							let totalD = o.donators?.filter(onlyUnique);
 							let totalR = o.payments?.reduce((a, b) => b ? +a + b?.amount : +a, 0);
 							let pastDate = new Date();
-							pastDate.setDate(today.getDate() - timeNumber.get(drop2));
+							pastDate.setDate(today.getDate() - (timeNumber as unknown as any).get(drop2));
 							let recentRaised = o.payments?.reduce((a, b) => b && b.date > pastDate ? +a + b?.amount : +a, 0)
 							if (recentRaised / totalR ? totalR : 0 > 0.4) {
 								return (

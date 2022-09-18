@@ -24,6 +24,7 @@ export default function CharitySection({ charity }: Props): ReactElement {
 				{
 					charity.tiers?.map((o, i) => {
 						return (<TierDashboardCard
+							key={i}
 							id={o.id}
 							charity={charity}
 							name={o.name}

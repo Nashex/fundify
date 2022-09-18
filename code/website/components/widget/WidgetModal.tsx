@@ -20,7 +20,7 @@ export default function WidgetModal({ buttonText }: Props) {
                 size={"fit"}
             >
                 {
-                    <Widget />
+                    <Widget id={"u1WDFVbUrPfZx5LDbcWj"} />
                 }
             </Modal>
             <div className="w-full">
