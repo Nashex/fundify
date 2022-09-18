@@ -4,6 +4,7 @@ import { Modal, Button, Group } from '@mantine/core';
 import TimeToggle from './TimeToggle';
 import CardDisplay from './CardDisplay';
 import CustomDonation from './CustomDonation';
+import Widget from './Widget';
 
 type Props = {
     buttonText: string,
@@ -27,10 +28,7 @@ export default function ModalBlock({ buttonText }: Props) {
                 size={"fit"}
             >
                 {
-                    <div>
-                        <CardDisplay recurring = {recurring}/>
-                        <CustomDonation />
-                    </div>
+                    <Widget />
                 }
             </Modal>
             <div className="w-full">
