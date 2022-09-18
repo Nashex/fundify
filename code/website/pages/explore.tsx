@@ -93,6 +93,7 @@ const charities = [
 export default function Explore({ }: Props): ReactElement {
 	const [drop, setDrop] = useState("week");
 	const [flip, setFlip] = useState(false);
+	const [value, setValue] = useState('');
 	const { classes } = useStyles();
 	return (
 		<div>
@@ -142,6 +143,8 @@ export default function Explore({ }: Props): ReactElement {
 				placeholder="Search"
 				icon={<IconSearch size={16} stroke={1.5} />}
 				data={[]}
+				value={value}
+				onChange={setValue}
 			/>
 				<div className="flex flex-row px-10 overflow-x-scroll w-fit">
 					{

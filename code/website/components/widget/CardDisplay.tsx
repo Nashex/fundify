@@ -1,14 +1,16 @@
 import React from 'react'
 import DonationTier from './DonationTier'
 
-type Props = {}
+type Props = {
+    recurring: boolean,
+}
 
-export default function ({ }: Props) {
+export default function ({recurring}: Props) {
     return (
-        <div className="grid grid-cols-3 gap-2 items-stretch">
-                <DonationTier title="Tier One" description="Free one laborer from a corporation for indetured servitude." amount="5" />
-                <DonationTier title="Tier Two" description="Lick an armpit." amount="15" />
-                <DonationTier title="Tier Three" description="Found a sweat shop." amount="50" />
+        <div className="flex flex-row items-stretch w-auto">
+                <DonationTier title="Tier 1" description="Free one laborer from a corporation for indetured servitude." amount="5" recurring={recurring}/>
+                <DonationTier title="Tier 2" description="Lick an armpit." amount="15" recurring={recurring}/>
+                <DonationTier title="Tier 3" description="Found a sweat shop." amount="50" recurring={recurring}/>  
         </div>
     )
 }
