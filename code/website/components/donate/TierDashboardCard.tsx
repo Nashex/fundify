@@ -62,17 +62,17 @@ export default function TierDashboard({ id, charity, name, desc, amount, type, c
 	}
 
 	return (
-		<div className="relative">
-			<div className={`relative bg-white p-4 rounded basis-1/6 ${className}`}>
+		<div className="relative h-full">
+			<div className={`relative bg-white p-4 rounded basis-1/6 ${className} h-full`}>
 				<TbTrash
 					onClick={handleDelete}
 					className="absolute right-4 top-4 text-xl text-gray-400 hover:text-red-400 cursor-pointer"
 				/>
-				<strong className="text-xl">{name}</strong>
-				<p className="text-md text-gray-400">{desc}</p>
+				<h1 className="text-xl">{name}</h1>
+				<h3 className="text-md text-gray-400 truncate">{desc}</h3>
 				<h1 className="text-5xl font-bold text-green-400 my-10">${amount}</h1>
-				<p className="text-lg text-gray-400">This is a {type} donation</p>
-				<button onClick={() => setOpen(true)} className="w-full bg-green-400 p-2 text-xl text-white rounded">Edit this Tier</button>
+				<h3 className="text-lg text-gray-400 mt-auto">This is a {type} donation</h3>
+				<button onClick={() => setOpen(true)} className="w-full bg-green-400 p-2 text-xl mt-auto text-white rounded">Edit this Tier</button>
 			</div>
 			<Modal
 				opened={open}
