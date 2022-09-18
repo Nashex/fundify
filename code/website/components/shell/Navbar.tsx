@@ -30,7 +30,7 @@ function Navbar() {
                                     <div className="bg-green-100 rounded text-green-400 p-2 mr-3">
                                         {o.icon}
                                     </div>
-                                    <p className="text-lg">{o.name}</p>
+                                    <p className="text-xl">{o.name}</p>
                                 </div>
                             </Link>
                         )

@@ -1,5 +1,5 @@
 import { createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword, getAuth, UserCredential, updateProfile } from '@firebase/auth';
-import { collection, addDoc } from 'firebase/firestore';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
 import React, { ReactElement, useState, useContext, useEffect } from 'react'
 import { auth, firestore } from '../firebase';
 
@@ -44,6 +44,14 @@ export default function AuthProvider({ children }: Props): ReactElement {
             const cred = await signInWithEmailAndPassword(auth, email, password)
             setIsLoading(true);
             const { user: userAuth } = cred;
+            if (!user) return;
+            const userDocRef = doc(firestore, "users", user.uid);
+            const userDoc = await getDoc(userDocRef);
+            if (!userDoc.exists()) {
+                await setDoc(doc(firestore, "users", user.uid), {
+                    charities: []
+                });    
+            }
             setUser(userAuth);
             setIsLoading(false);
         }
@@ -59,7 +67,7 @@ export default function AuthProvider({ children }: Props): ReactElement {
 
             setUser(user);
 
-            await addDoc(collection(firestore, "users", user.uid), {
+            await setDoc(doc(firestore, "users", user.uid), {
                 charities: []
             });
 

@@ -7,6 +7,7 @@ export interface Charity {
 }
 
 export interface Tier {
+    id?: string
     charityId: string
     name: string
     desc: string

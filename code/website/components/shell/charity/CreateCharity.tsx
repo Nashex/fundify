@@ -106,7 +106,7 @@ function CreateCharity() {
 
             <div onClick={open}>
                 <CharityCard>
-                    <p>Add a charity!</p>
+                    <p className="text-xl">Add a charity!</p>
                     <TbPlus className="my-auto text-green-200" size={75} />
                 </CharityCard>
             </div>

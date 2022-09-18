@@ -52,7 +52,7 @@ function Dashboard() {
                 <h1 className="text-4xl font-medium">Welcome to the <span className="text-green-400">fundify</span> dashboard!</h1>
             </div>
 
-            <h1 className="text-3xl font-medium text-green-400 mt-10">Your Charities</h1>
+            <h1 className="text-3xl font-medium mt-10">Your <span className="text-green-400">Charities</span></h1>
             <div className="flex flex-row my-2 space-x-4">
                 {
                     !loading ? (
