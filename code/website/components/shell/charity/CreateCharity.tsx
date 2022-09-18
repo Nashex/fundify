@@ -48,10 +48,11 @@ function CreateCharity() {
             ...form
         });
 
+        close();
+
         await updateDoc(doc(firestore, "users", uid), {
             charities: arrayUnion(charity.id)
         });
-        close();
     }
 
     return (
