@@ -5,6 +5,10 @@ import Link from 'next/link';
 import Footer from '../components/shell/Footer';
 import ModalBlock from '../components/widget/ModalBlock';
 import { Modal } from '@mantine/core';
+import CustomDonation from '../components/widget/CustomDonation';
+import CardDisplay from '../components/widget/CardDisplay';
+import DonationTier from '../components/widget/DonationTier';
+import Widget from '../components/widget/Widget';
 
 const ITEMS = [
   {
@@ -33,7 +37,7 @@ const charities = [
       totalDonators: 123
     }
   }
-]
+];
 
 const Home: NextPage = () => {
   return (
@@ -77,8 +81,6 @@ const Home: NextPage = () => {
         </div>
       </div>
 
-
-
       <div className="bg-gray-100 mt-20">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 200">
           <path fill="#fff" fill-opacity="1" d="M0,128L40,144C80,160,160,192,240,192C320,192,400,160,480,133.3C560,107,640,85,720,80C800,75,880,85,960,106.7C1040,128,1120,160,1200,165.3C1280,171,1360,149,1400,138.7L1440,128L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path>
@@ -87,9 +89,7 @@ const Home: NextPage = () => {
           <div className="max-w-5xl mx-auto py-10"></div>
           <h2 className="text-5xl font-bold text-gray-800 mb-10 px-10">Setup our <span className="text-green-400">widget</span> on any website!</h2>
 
-          <div className="h-[500px] bg-white mx-10 rounded shadow-sm">
-            Placeholder
-          </div>
+            <Widget />
         </div>
       </div>
 
@@ -126,7 +126,6 @@ const Home: NextPage = () => {
             }
           </div>
         </div>
-        <ModalBlock buttonText='Dontnate'/>
       </div>
 
       <Footer />
