@@ -2,7 +2,7 @@ import { Button, Modal, Notification, NumberInput, Switch, Textarea, TextInput }
 import React, { ReactElement, useState } from 'react'
 import { useAuth } from '../../context/AuthProvider'
 import { Charity } from '../../types/types'
-import { collection, addDoc, deleteDoc, doc } from 'firebase/firestore'
+import { collection, addDoc, deleteDoc, updateDoc, doc } from 'firebase/firestore'
 import { firestore } from '../../firebase'
 import useStore from '../../state/store'
 import { TbTrash, TbX } from 'react-icons/tb'
@@ -22,6 +22,7 @@ interface Props {
 export default function TierDashboard({ id, charity, name, desc, amount, type, className, create }: Props): ReactElement {
 	const { user } = useAuth();
 	const [open, setOpen] = useState(false);
+	const [edit, setEdit] = useState(false);
 	const [form, setForm] = useState<any>({
 		name: create ? "" : name,
 		desc: create ? "" : desc,
@@ -31,6 +32,7 @@ export default function TierDashboard({ id, charity, name, desc, amount, type, c
 	const [error, setError] = useState("");
 
 	const addTier = useStore((state: any) => state.addTier);
+	const editTier = useStore((state: any) => state.editTier);
 	const removeTier = useStore((state: any) => state.removeTier);
 
 	const close = () => setOpen(false);
@@ -56,6 +58,21 @@ export default function TierDashboard({ id, charity, name, desc, amount, type, c
 		close();
 	}
 
+	const handleEdit = async (e: any) => {
+		e.preventDefault();
+		if (!form["name"] || !form["desc"] || !form["amount"]) {
+			setError("Missing fields.");
+			return setTimeout(() => setError(""), 2500);
+		}
+		
+		const tier = await updateDoc(doc(firestore, "charities", charity.id, "tiers"), {
+			...form
+		});
+		editTier(charity, { id: id, ...form });
+
+		close();
+	}
+
 	const handleDelete = async (e: any) => {
 		await deleteDoc(doc(firestore, "charities", charity?.id || "", "tiers", id || ""));
 		removeTier(charity, { id });
@@ -72,14 +89,15 @@ export default function TierDashboard({ id, charity, name, desc, amount, type, c
 				<h3 className="text-md text-gray-400 truncate">{desc}</h3>
 				<h1 className="text-5xl font-bold text-green-400 my-10">${amount}</h1>
 				<h3 className="text-lg text-gray-400 mt-auto">This is a {type} donation</h3>
-				<button onClick={() => setOpen(true)} className="w-full bg-green-400 p-2 text-xl mt-auto text-white rounded">Edit this Tier</button>
+				<button onClick={() => {setOpen(true), setEdit(true)}} className="w-full bg-green-400 p-2 text-xl mt-auto text-white rounded">Edit this Tier</button>
 			</div>
 			<Modal
 				opened={open}
-				onClose={() => setOpen(false)}
+				onClose={() => {setOpen(false), setEdit(false)}}
 				centered
 				size="md"
-				title={<h1 className="text-3xl font-medium">Add a tier to <span className="text-green-400">{charity.name}</span></h1>}
+				title={ !edit ? <h1 className="text-3xl font-medium">Add a tier to <span className="text-green-400">{charity.name}</span></h1>
+			: <h1 className="text-3xl font-medium">Edit a tier to <span className="text-green-400">{charity.name}</span></h1> }
 			>
 				{
 					error && (
@@ -121,12 +139,20 @@ export default function TierDashboard({ id, charity, name, desc, amount, type, c
 					className="mt-4"
 					label="Monthly subscription plan"
 				/>
+				{ !edit ?
 				<Button
 					className="bg-green-400 w-full mt-4"
 					onClick={handleSubmit}
 				>
 					<p className="text-xl">Create</p>
-				</Button>
+				</Button> :
+				<Button
+				className="bg-green-400 w-full mt-4"
+				onClick={handleEdit}
+			>
+				<p className="text-xl">Edit</p>
+			</Button>
+				}
 
 			</Modal>
 			{
