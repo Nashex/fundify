@@ -4,7 +4,6 @@ import TierDashboardCard from '../../donate/TierDashboardCard'
 import DonationsReceived from '../../analytics/DonationsReceived';
 import LinearOverTime from '../../analytics/LinearOverTime';
 import TierBreakdown from '../../analytics/TierBreakdown';
-import Chart from 'chart.js/auto';
 
 interface Props {
     charity: Charity

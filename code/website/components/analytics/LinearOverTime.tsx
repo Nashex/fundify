@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Charity } from '../../types/types'
 import { FiMinusSquare, FiPlusSquare } from 'react-icons/Fi'
+import Chart from 'chart.js/auto';
 
 type Props = {
     charity: Charity,
