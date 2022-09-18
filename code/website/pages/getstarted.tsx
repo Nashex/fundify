@@ -51,18 +51,17 @@ function GetStarted() {
 
     const handleFinish = () => {
         setStep(3);
-        console.log(form);
         const { name, email, password } = form;
 
-
         register(name, email, password).then(() => {
-            // Do something
+            router.push({
+                pathname: '/dashboard'
+            });
         }).catch((e) => {
-            console.log(e);
+            //console.log(e);
             setError(e.message);
             setTimeout(() => setError(false), 2500);
         });
-        window.location.href = '/dashboard';
     }
 
     return (
