@@ -1,21 +1,34 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { Charity } from '../../types/types'
 
 
 type Props = {
     charity: Charity,
-    time: string
+    time: string,
+    average: boolean
 }
 
-export default function DonationsReceived({ charity, time }: Props) {
-    const [timetext, setTimetext] = useState('Money Raised All-Time')
-    
+export default function DonationsReceived({ charity, time, average }: Props) {
+    const [timetext, setTimetext] = useState('')
+
     // Determine the timescale for the analytics
     useEffect(() => {
-        if (time == 'monthly') {
-            setTimetext('Money Raised This Month')
-        } else if (time == 'weekly') {
-            setTimetext('Money Raised This Week')
+        if (average) {
+            if (time == 'monthly') {
+                setTimetext('Avg. Gift This Month')
+            } else if (time == 'weekly') {
+                setTimetext('Avg. Gift This Week')
+            } else {
+                setTimetext('Avg. Gift All Time')
+            }
+        } else {
+            if (time == 'monthly') {
+                setTimetext('Money Raised This Month')
+            } else if (time == 'weekly') {
+                setTimetext('Money Raised This Week')
+            } else {
+                setTimetext('Money Raised All Time')
+            }
         }
     }, [])
 
