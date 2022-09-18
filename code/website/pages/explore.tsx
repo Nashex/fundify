@@ -8,7 +8,7 @@ import { IconSearch } from '@tabler/icons';
 import { Charity, Profile, Tier, Payment } from '../types/types';
 import { doc, documentId, getDoc, getDocs, query, where, collection } from 'firebase/firestore';
 import { firestore } from '../firebase';
-import ModalBlock from "../components/widget/ModalBlock"
+import ModalBlock from "../components/widget/WidgetModal"
 import { TbChevronDown } from 'react-icons/tb';
 
 const useStyles = createStyles((theme) => ({

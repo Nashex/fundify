@@ -3,11 +3,8 @@ import Header from '../components/shell/Header';
 import { TbHeartHandshake, TbChevronsUp, TbChartArrowsVertical, TbBrandGithub, TbUsers } from 'react-icons/tb';
 import Link from 'next/link';
 import Footer from '../components/shell/Footer';
-import ModalBlock from '../components/widget/ModalBlock';
+import WidgetModal from '../components/widget/WidgetModal';
 import { Modal } from '@mantine/core';
-import CustomDonation from '../components/widget/CustomDonation';
-import CardDisplay from '../components/widget/CardDisplay';
-import DonationTier from '../components/widget/DonationTier';
 import Widget from '../components/widget/Widget';
 
 const ITEMS = [
@@ -124,7 +121,7 @@ const Home: NextPage = () => {
                                 )
                             })
                         }
-                        <ModalBlock buttonText = {"Donate"}/>
+                        <WidgetModal buttonText = {"Donate"}/>
                     </div>
                 </div>
             </div>

@@ -1,16 +1,13 @@
 import React from 'react'
 import { useState } from 'react';
 import { Modal, Button, Group } from '@mantine/core';
-import TimeToggle from './TimeToggle';
-import CardDisplay from './CardDisplay';
-import CustomDonation from './CustomDonation';
 import Widget from './Widget';
 
 type Props = {
     buttonText: string,
 }
 
-export default function ModalBlock({ buttonText }: Props) {
+export default function WidgetModal({ buttonText }: Props) {
     const [opened, setOpened] = useState(false);
     const [recurring, setRecurring] = useState(false);
 
@@ -20,11 +17,6 @@ export default function ModalBlock({ buttonText }: Props) {
                 opened={opened}
                 onClose={() => setOpened(false)}
                 centered
-                title={
-                    <div>
-                        <TimeToggle recurring={recurring} setRecurring={setRecurring} />
-                    </div>
-                }
                 size={"fit"}
             >
                 {
