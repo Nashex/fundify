@@ -4,7 +4,15 @@ const nextConfig = {
   swcMinify: true,
   images: {
     domains: ["*"]
-  }
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: '*',
+      },
+    ]
+  },
 }
 
 module.exports = nextConfig
