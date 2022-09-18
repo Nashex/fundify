@@ -120,7 +120,6 @@ export default function Explore({ }: Props): ReactElement {
 							let totalD = o.donators?.filter(onlyUnique);
 							let totalR = o.payments?.reduce((a, b) => b ? +a + b?.amount : +a, 0);
 							let pastDate = new Date();
-							pastDate.setDate(today.getDate() - timeNumber.get(drop));
 							let recentRaised = o.payments?.reduce((a, b) => b && b.date > pastDate ? +a + b?.amount : +a, 0)
 							return (
 								<div key={i} className="bg-white rounded-lg cursor-pointer p-4 min-w-[33%] max-w-[33%]">

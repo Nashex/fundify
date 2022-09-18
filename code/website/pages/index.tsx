@@ -89,7 +89,7 @@ const Home: NextPage = () => {
           <div className="max-w-5xl mx-auto py-10"></div>
           <h2 className="text-5xl font-bold text-gray-800 mb-10 px-10">Setup our <span className="text-green-400">widget</span> on any website!</h2>
 
-            <Widget />
+            <Widget id="u1WDFVbUrPfZx5LDbcWj" />
         </div>
       </div>
 
