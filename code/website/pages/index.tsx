@@ -41,13 +41,13 @@ const Home: NextPage = () => {
       <Header />
 
       <div className="p-10">
-        <div className="max-w-5xl mx-auto flex flex-col items-center py-20">
-          <h1 className="text-8xl font-bold text-green-300 mb-4"><span className="text-green-500">Jumpstart</span> your charity.</h1>
-          <h2 className="text-2xl text-slate-700 my-5">Donations dont have to be hard. Quickly setup a fully fledged donation tool for your charity with advanced analytics, sleek integration, and no cost.</h2>
+        <div className="max-w-5xl mx-auto flex flex-col items-center pt-20">
+          <h1 className="text-9xl font-bold text-green-300 mb-4"><span className="text-green-500">Jumpstart</span> your charity.</h1>
+          <h2 className="text-4xl text-gray-600 my-5">Donations dont have to be hard. Quickly setup a fully fledged donation tool for your charity with advanced analytics, sleek integration, and no cost.</h2>
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto flex md:flex-row flex-col p-10">
+      <div className="max-w-5xl mx-auto flex md:flex-row flex-col py-10">
         {
           ITEMS.map((o, i) => (
             <div className="flex flex-col items-start md:mr-20 mb-10" key={i}>
