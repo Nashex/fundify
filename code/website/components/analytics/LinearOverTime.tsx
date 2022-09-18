@@ -56,14 +56,26 @@ export default function LinearOverTime({ charity, title, y, average }: Props) {
         ],
     };
 
+    const avgGift = {
+        labels,
+        datasets: [
+            {
+                label: 'Avg. Gift',
+                data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+                borderColor: 'rgb(119, 235, 52)',
+                backgroundColor: 'rgba(12, 173, 114, 0.5)',
+            },
+        ],
+    };
+
     const dollarsData = {
         labels,
         datasets: [
             {
                 label: 'Dollars',
                 data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-                borderColor: 'rgb(255, 99, 132)',
-                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                borderColor: 'rgb(255, 203, 59)',
+                backgroundColor: 'rgba(220, 232, 107, 0.5)',
             },
         ],
     };
@@ -86,6 +98,11 @@ export default function LinearOverTime({ charity, title, y, average }: Props) {
             {
                 hidden ?
                     <></>
+                    :
+                    average == true ?
+                    <div className="max-w-[700px] max-h-[600px]">
+                        <Line data={avgGift} width = {500} height = {300} options = {{ maintainAspectRatio: true }} />
+                    </div>
                     :
                     y == 'donation' ?
                     <div className="max-w-[700px] max-h-[600px]">
