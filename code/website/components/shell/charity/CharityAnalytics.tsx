@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 import { Charity } from '../../../types/types'
 import TierDashboardCard from '../../donate/TierDashboardCard'
+import DonationsReceived from '../../analytics/DonationsReceived';
 
 interface Props {
     charity: Charity
@@ -10,30 +11,8 @@ export default function CharityAnalytics({ charity }: Props) {
     return (
         <div className="mb-6">
             <h1 className="text-2xl font-medium">{charity.name}</h1>
-            <p className="text-xl text-gray-400">{charity.desc}</p>
-            <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 my-2 space-x-4">
-                <TierDashboardCard
-                    charity={charity}
-                    name="Patron"
-                    desc="Puts 5 more trees in the ground"
-                    amount={5}
-                    type="one-time"
-                    className="blur-[4px] opacity-70 mb-4"
-                    create
-                />
-                {
-                    charity.tiers?.map((o, i) => {
-                        return (<TierDashboardCard
-                            id={o.id}
-                            charity={charity}
-                            name={o.name}
-                            desc={o.desc}
-                            amount={o.amount}
-                            type={o.type}
-                            className="mb-4"
-                        />)
-                    })
-                }
+            <div className = "flex flex-row">
+                <DonationsReceived charity={charity} time='all-time' />
             </div>
         </div>
     )
