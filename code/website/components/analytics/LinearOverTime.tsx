@@ -43,13 +43,13 @@ export default function LinearOverTime({ charity, }: Props) {
         datasets: [
             {
                 label: 'Recurring Donations',
-                data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+                data: labels.map(() => faker.datatype.number({ min: 1, max: 150 })),
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
             },
             {
                 label: 'One-Time Donations',
-                data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+                data: labels.map(() => faker.datatype.number({ min: 1, max: 150 })),
                 borderColor: 'rgb(53, 162, 235)',
                 backgroundColor: 'rgba(53, 162, 235, 0.5)',
             },
@@ -61,7 +61,7 @@ export default function LinearOverTime({ charity, }: Props) {
         datasets: [
             {
                 label: 'Avg. Gift',
-                data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+                data: labels.map(() => faker.datatype.number({ min: 1, max: 150 })),
                 borderColor: 'rgb(119, 235, 52)',
                 backgroundColor: 'rgba(12, 173, 114, 0.5)',
             },
