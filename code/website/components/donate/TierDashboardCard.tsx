@@ -2,10 +2,10 @@ import { Button, Modal, Notification, NumberInput, Switch, Textarea, TextInput }
 import React, { ReactElement, useState } from 'react'
 import { useAuth } from '../../context/AuthProvider'
 import { Charity } from '../../types/types'
-import { collection, addDoc } from 'firebase/firestore'
+import { collection, addDoc, deleteDoc, doc } from 'firebase/firestore'
 import { firestore } from '../../firebase'
 import useStore from '../../state/store'
-import { TbX } from 'react-icons/tb'
+import { TbTrash, TbX } from 'react-icons/tb'
 
 interface Props {
 	id?: string,
@@ -31,6 +31,7 @@ export default function TierDashboard({ id, charity, name, desc, amount, type, c
 	const [error, setError] = useState("");
 
 	const addTier = useStore((state: any) => state.addTier);
+	const removeTier = useStore((state: any) => state.removeTier);
 
 	const close = () => setOpen(false);
 
@@ -51,13 +52,22 @@ export default function TierDashboard({ id, charity, name, desc, amount, type, c
 			...form
 		});
 
-		addTier(charity, form);
+		addTier(charity, { id: tier.id, ...form });
 		close();
+	}
+
+	const handleDelete = async (e: any) => {
+		await deleteDoc(doc(firestore, "charities", charity?.id || "", "tiers", id || ""));
+		removeTier(charity, { id });
 	}
 
 	return (
 		<div className="relative">
-			<div className={`bg-white p-4 rounded basis-1/6 ${className}`}>
+			<div className={`relative bg-white p-4 rounded basis-1/6 ${className}`}>
+				<TbTrash
+					onClick={handleDelete}
+					className="absolute right-4 top-4 text-xl text-gray-400 hover:text-red-400 cursor-pointer"
+				/>
 				<strong className="text-xl">{name}</strong>
 				<p className="text-md text-gray-400">{desc}</p>
 				<h1 className="text-5xl font-bold text-green-400 my-10">${amount}</h1>
