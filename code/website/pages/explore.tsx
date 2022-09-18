@@ -8,7 +8,7 @@ import { IconSearch } from '@tabler/icons';
 import { Charity, Profile, Tier } from '../types/types';
 import { doc, documentId, getDoc, getDocs, query, where, collection } from 'firebase/firestore';
 import { firestore } from '../firebase';
-import useStore from '../state/store';
+import { TbChevronDown } from 'react-icons/tb';
 
 const useStyles = createStyles((theme) => ({
 	search: {
@@ -28,7 +28,7 @@ interface Props {
 
 const options = ["week", "month", "year"]
 
-const charities = [
+const charitiess = [
 	{
 		name: "Josh's JHU Jewish Jfoundation",
 		description: "Making Rhymes for the JHU Hillel every week.",
@@ -96,8 +96,8 @@ const charities = [
 export default function Explore({ }: Props): ReactElement {
 	const [drop, setDrop] = useState("week");
 	const [flip, setFlip] = useState(false);
-	const charities: Charity[] = useStore((state: any) => state.charities);
-	const setCharities = useStore((state: any) => state.setCharities);
+	const [charities, setCharities] = useState<Charity[]>([]);
+	const [loading, setLoading] = useState(false);
 	const { classes } = useStyles();
 
 	useEffect(() => {
@@ -105,17 +105,19 @@ export default function Explore({ }: Props): ReactElement {
 	}, [])
 
 	const getCharities = async () => {
+		setLoading(true);
 		const charityRef = collection(firestore, "charities");
 		const qS = await getDocs(charityRef);
 		const res: Charity[] = [];
-		qS.forEach(async doc => {
+		qS.forEach(async doc =>{
 			const data = doc.data();
 			res.push({
 				id: doc.id,
-				tiers: [],
-				...data
+				...data as any
 			})
-		});
+		})
+		setCharities(res);
+		setLoading(false);
 	}
 
 	return (
@@ -127,7 +129,7 @@ export default function Explore({ }: Props): ReactElement {
 						<Menu.Target>
 							<Button onClick={() => setFlip(!flip)} className="text-green-400 text-3xl font-bold w-fit px-2 h-10 hover:bg-slate-100"> {drop} {
 								
-									flip ? <FaChevronDown size={20} className="mt-3"/> : <FaChevronRight size={20} className="mt-2"/>
+									<TbChevronDown size={20} className={`mt-2 self-start ${!flip ? "rotate-90" : ""} transition-all`}/>
 								
 							} </Button> 
 						</Menu.Target>
@@ -146,12 +148,12 @@ export default function Explore({ }: Props): ReactElement {
 						</Menu.Dropdown>
 					</Menu>
 				</h1>
-				<div className="flex flex-row px-10 overflow-x-auto w-fit">
+				<div className="flex flex-row px-10 w-fit flex-wrap">
 					{
-						charities.map((o, i) => {
+						charitiess.map((o, i) => {
 							return (
-								<div key={i} className="bg-white rounded-lg cursor-pointer p-4 shrink self-stretch h-full basis 1/3">
-									{o.stats[drop].donatorGained / o.stats.totalDonators > 0.4 ?
+								<div key={i} className="bg-white rounded-lg cursor-pointer p-4 min-w-[33%] max-w-[33%]">
+									{o.stats[drop].donatorGained / o.stats.totalDonators > 0.0 ?
 										<CharityScroll name={o.name} description={o.description} totalRaised={o.stats.totalRaised} totalDonators={o.stats.totalDonators} />
 										: null}
 								</div>
@@ -167,12 +169,12 @@ export default function Explore({ }: Props): ReactElement {
 				icon={<IconSearch size={16} stroke={1.5} />}
 				data={[]}
 			/>
-				<div className="flex flex-row px-10 overflow-x-scroll w-fit">
+				<div className="flex flex-row px-10 flex-wrap w-fit">
 					{
 						charities.map((o, i) => {
 							return (
-								<div key={i} className="min-w-[33%] bg-white rounded-lg cursor-pointer p-4">
-									<CharityScroll name={o.name} description={o.description} totalRaised={o.stats.totalRaised} totalDonators={o.stats.totalDonators} />
+								<div key={i} className="min-w-[33%] max-w-[33%] bg-white rounded-lg cursor-pointer p-4">
+									<CharityScroll name={o.name} description={o.desc} totalRaised={43} totalDonators={43} />
 								</div>
 							)
 						})

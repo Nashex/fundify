@@ -33,7 +33,7 @@ function Dashboard() {
         if (res.length) {
             const charityRef = collection(firestore, "charities");
             const qS = await getDocs(query(charityRef, where(documentId(), "in", charityIds)));
-            qS.forEach(doc => res.push({ id: doc.id, ...doc.data() }));
+            qS.forEach(doc => res.push({ id: doc.id, ...doc.data() as any }));
         }
         setCharities(...res);
         setLoading(false);
