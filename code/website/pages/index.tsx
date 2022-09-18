@@ -33,7 +33,7 @@ const Home: NextPage = () => {
             <div className="p-10">
                 <div className="max-w-5xl mx-auto flex flex-col items-center pt-20">
                     <h1 className="text-9xl font-bold text-green-300 mb-4"><span className="text-green-500">Jumpstart</span> your charity.</h1>
-                    <h2 className="text-4xl text-gray-600 my-5">Donations dont have to be hard. Quickly setup a fully fledged donation tool for your charity with advanced analytics, sleek integration, and no cost.</h2>
+                    <h2 className="text-4xl text-gray-600 my-5">Donations don't have to be hard. Quickly set up a fully fledged donation tool for your charity with advanced analytics, sleek integration, and at 0 cost.</h2>
                 </div>
             </div>
 
