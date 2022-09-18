@@ -41,9 +41,9 @@ export default function AuthProvider({ children }: Props): ReactElement {
 
     const logIn: (email: string, password: string) => Promise<void> =
         async (email, password) => {
-            const cred = await signInWithEmailAndPassword(auth, email, password)
             setIsLoading(true);
-            const { user: userAuth } = cred;
+            const cred = await signInWithEmailAndPassword(auth, email, password)
+            const { user } = cred;
             if (!user) return;
             const userDocRef = doc(firestore, "users", user.uid);
             const userDoc = await getDoc(userDocRef);
@@ -52,7 +52,7 @@ export default function AuthProvider({ children }: Props): ReactElement {
                     charities: []
                 });    
             }
-            setUser(userAuth);
+            setUser(user);
             setIsLoading(false);
         }
 
