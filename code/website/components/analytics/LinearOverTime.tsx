@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { Charity } from '../../types/types'
-import { FiMinusSquare, FiPlusSquare } from 'react-icons/fi'
 import { Line } from 'react-chartjs-2';
 import { faker } from '@faker-js/faker';
 import {
@@ -12,8 +11,9 @@ import {
     Title,
     Tooltip,
     Legend,
-    
+
 } from 'chart.js';
+import { TbMinus, TbPlus } from 'react-icons/tb';
 
 ChartJS.register(
     CategoryScale,
@@ -128,9 +128,9 @@ export default function LinearOverTime({ charity, }: Props) {
                 <div className="ml-1 justify-end hover:cursor-pointer">
                     {
                         hidden ?
-                            <FiPlusSquare onClick={() => { setHidden(!hidden) }} />
+                            <TbPlus onClick={() => { setHidden(!hidden) }} />
                             :
-                            <FiMinusSquare onClick={() => { setHidden(!hidden) }} />
+                            <TbMinus onClick={() => { setHidden(!hidden) }} />
                     }
                 </div>
             </div>
