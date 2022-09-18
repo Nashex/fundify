@@ -60,23 +60,22 @@ export default function Explore({ }: Props): ReactElement {
 
 		for (const charityDoc of res) {
 			const paymentQs = await getDocs(collection(firestore, "charities", charityDoc.id, "payments"));
+			charityDoc.payments = [];
 			paymentQs.forEach(paymentDoc => {
 				let data = paymentDoc.data();
-				charityDoc.payments = [
+				charityDoc.payments.push(
 					{ id: paymentDoc.id, ...paymentDoc.data(), date: data.date.toDate(), } as any,
-					charityDoc.payments,
-				]
-
+				)
 			});
 		}
 
 		for (const charityDoc of res) {
 			const donatorQs = await getDocs(collection(firestore, "charities", charityDoc.id, "donators"));
+			charityDoc.donators = [];
 			donatorQs.forEach(donatorDoc => {
-				charityDoc.donators = [
-					{ id: donatorDoc.id, ...donatorDoc.data() } as any,
-					charityDoc.donators,
-				]
+				charityDoc.donators.push(
+					{ id: donatorDoc.id, ...donatorDoc.data() } as any
+				)
 			});
 		}
 
