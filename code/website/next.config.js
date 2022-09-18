@@ -9,7 +9,7 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: 'https://*',
+        destination: 'http://*',
       },
     ]
   },
