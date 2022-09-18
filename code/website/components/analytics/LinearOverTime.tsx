@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Charity } from '../../types/types'
-import { FiMinusSquare, FiPlusSquare } from 'react-icons/Fi'
+import { FiMinusSquare, FiPlusSquare } from 'react-icons/fi'
 import { Line } from 'react-chartjs-2';
 import { faker } from '@faker-js/faker';
 import {

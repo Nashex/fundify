@@ -42,9 +42,6 @@ export default function Payment({ }: Props): ReactElement {
 
 	useEffect(() => {
 		if (query.c) getCharity();
-		return () => {
-
-		}
 	}, []);
 	
 	return (

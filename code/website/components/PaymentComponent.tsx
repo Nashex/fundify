@@ -1,11 +1,7 @@
 import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import React, { FormEvent, ReactElement, useState } from 'react'
 
-interface Props {
-
-}
-
-export default function PaymentComponent({ }: Props): ReactElement {
+export default function PaymentComponent(): ReactElement {
 	const [loading, setLoading] = useState(true);
 
 	const [errorMessage, setErrorMessage] = useState<string | null>();
@@ -37,10 +33,6 @@ export default function PaymentComponent({ }: Props): ReactElement {
 			// confirming the payment. Show error to your customer (for example, payment
 			// details incomplete)
 			setErrorMessage(error.message || null);
-		} else {
-			// Your customer will be redirected to your `return_url`. For some payment
-			// methods like iDEAL, your customer will be redirected to an intermediate
-			// site first to authorize the payment, then redirected to the `return_url`.
 		}
 	};
 
