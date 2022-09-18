@@ -25,17 +25,6 @@ const ITEMS = [
     },
 ];
 
-const charities = [
-    {
-        name: "Jerome's Swole fund",
-        description: "Helping impoverished children one bicep at a time.",
-        stats: {
-            totalRaised: 1231.21,
-            totalDonators: 123
-        }
-    }
-];
-
 const Home: NextPage = () => {
     return (
         <div className="relative">
@@ -84,48 +73,20 @@ const Home: NextPage = () => {
                 </svg>
                 <div className="max-w-5xl mx-auto py-10">
                     <div className="max-w-5xl mx-auto py-10"></div>
-                    <h2 className="text-5xl font-bold text-gray-800 mb-10 px-10">Setup our <span className="text-green-400">widget</span> on any website!</h2>
+                    <h2 className="text-5xl font-bold text-gray-800 mb-10 px-10">Set up our <span className="text-green-400">widget</span> on any website!</h2>
 
                     <Widget id="u1WDFVbUrPfZx5LDbcWj" />
                 </div>
             </div>
 
-            <div className="bg-gray-100 pt-10">
-                <div className="max-w-5xl mx-auto py-10">
-                    <h2 className="text-5xl font-bold text-gray-800 mb-10 px-10">Check out our  <span className="text-green-400">charities</span>!</h2>
-                    <div className="flex flex-row px-10">
-                        {
-                            charities.map((o, i) => {
-                                return (
-                                    <div key={i} className="basis-1/3 bg-white rounded-lg shadow-sm hover:shadow-lg cursor-pointer p-4">
-                                        <div className="my-2">
-                                            <strong className="text-3xl text-green-400 font-medium">{o.name}</strong>
-                                            <p className="text-lg text-gray-600">{o.description}</p>
-                                            <div className="flex flex-row justify-center mt-3 items-start">
-                                                <div className="flex flex-col items-center p-3">
-                                                    <div className="flex flex-row items-center">
-                                                        <strong className="text-3xl font-bold px-1 align-text-middle text-gray-700"><span className="text-green-400 text-3xl">$</span>{o.stats.totalRaised}</strong>
-                                                    </div>
-                                                    <p className="text-gray-400">Raised</p>
-                                                </div>
-                                                <div className="flex flex-col items-center p-3">
-                                                    <div className="flex flex-row items-center">
-                                                        <strong className="text-3xl font-bold px-1 text-gray-700">{o.stats.totalDonators}</strong>
-                                                        <TbUsers size={30} className="text-green-400" />
-                                                    </div>
-                                                    <p className="text-gray-400 text-center">Donators</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )
-                            })
-                        }
-                        <WidgetModal buttonText = {"Donate"}/>
-                    </div>
+            <div className="bg-gray-100 pt-4">
+                <div className="max-w-5xl mx-auto py-4">
+                    <Link href = {'/explore'}>
+                        <h2 className="text-5xl font-bold text-gray-800 mb-10 px-10 hover:cursor-pointer">Explore our  <span className="text-green-400 hover:cursor-pointer">charities</span>!</h2>
+                    </Link>
                 </div>
             </div>
-            
+
             <Footer />
         </div>
     )
