@@ -98,6 +98,7 @@ export default function Explore({ }: Props): ReactElement {
 	const [flip, setFlip] = useState(false);
 	const [charities, setCharities] = useState<Charity[]>([]);
 	const [loading, setLoading] = useState(false);
+	const [value, setValue] = useState('');
 	const { classes } = useStyles();
 
 	useEffect(() => {
@@ -168,6 +169,8 @@ export default function Explore({ }: Props): ReactElement {
 				placeholder="Search"
 				icon={<IconSearch size={16} stroke={1.5} />}
 				data={[]}
+				value={value}
+				onChange={setValue}
 			/>
 				<div className="flex flex-row px-10 flex-wrap w-fit">
 					{

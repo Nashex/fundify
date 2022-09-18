@@ -30,6 +30,8 @@ export default function Charities({ }: Props): ReactElement {
 		const profile = await getDoc(doc(firestore, "users", user.uid));
 		const { charities: charityIds } = profile.data() as Profile;
 
+		if (!charityIds.length) return setLoading(false);
+
 		const charityRef = collection(firestore, "charities");
 		const qS = await getDocs(query(charityRef, where(documentId(), "in", charityIds)));
 		const res: Charity[] = [];
@@ -46,13 +48,11 @@ export default function Charities({ }: Props): ReactElement {
 			const tierQs = await getDocs(collection(firestore, "charities", charityDoc.id, "tiers"));
 			tierQs.forEach(tierDoc => {
 				charityDoc.tiers = [
-					tierDoc.data() as any,
+					{ id: tierDoc.id, ...tierDoc.data() } as any,
 					...charityDoc.tiers,
 				]
 			});
 		}
-
-		console.log(res)
 
 		setCharities(...res);
 		setLoading(false);

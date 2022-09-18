@@ -23,20 +23,18 @@ function Dashboard() {
     }, [])
 
     const getProfile = async () => {
-        setLoading(true);
         if (!user?.uid) return;
         const profile = await getDoc(doc(firestore, "users", user.uid));
         const profileData = profile.data() as Profile || user;
         const charityIds = profileData.charities || [];
 
         const res: Charity[] = [];
-        if (res.length) {
+        if (charityIds.length) {
             const charityRef = collection(firestore, "charities");
             const qS = await getDocs(query(charityRef, where(documentId(), "in", charityIds)));
             qS.forEach(doc => res.push({ id: doc.id, ...doc.data() as any }));
         }
         setCharities(...res);
-        setLoading(false);
     }
 
     return (
@@ -52,7 +50,7 @@ function Dashboard() {
                 <h1 className="text-4xl font-medium">Welcome to the <span className="text-green-400">fundify</span> dashboard!</h1>
             </div>
 
-            <h1 className="text-3xl font-medium text-green-400 mt-10">Your Charities</h1>
+            <h1 className="text-3xl font-medium mt-10">Your <span className="text-green-400">Charities</span></h1>
             <div className="flex flex-row my-2 space-x-4">
                 {
                     !loading ? (

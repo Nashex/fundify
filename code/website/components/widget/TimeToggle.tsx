@@ -11,7 +11,7 @@ export default function TimeToggle({recurring, setRecurring}: Props) {
         <div className="flex">
             {
                 recurring == true ?
-                    <div className="text-gray-400 hover:cursor-pointer text-2xl" onClick={() => { setRecurring(!recurring) }}>One-Time</div> : <div className="text-green-400 text-2xl font-bold">One-Time</div>
+                    <div className="text-gray-400 hover:cursor-pointer text-2xl" onClick={() => { setRecurring(!recurring) }}>One-Time</div> : <div className="text-green-500 text-2xl font-bold">One-Time</div>
             }
         </div>
         <div className="flex text-gray-400">
@@ -20,7 +20,7 @@ export default function TimeToggle({recurring, setRecurring}: Props) {
         <div className="flex">
             {
                 recurring == true ?
-                    <div className="text-green-400 text-2xl font-bold">Recurring</div> : <div className="text-gray-400 text-2xl hover:cursor-pointer" onClick={() => { setRecurring(!recurring) }}>Recurring</div>
+                    <div className="text-green-500 text-2xl font-bold">Recurring</div> : <div className="text-gray-400 text-2xl hover:cursor-pointer" onClick={() => { setRecurring(!recurring) }}>Recurring</div>
             }
         </div>
     </div>
