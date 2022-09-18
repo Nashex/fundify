@@ -1,7 +1,7 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 
 interface Props {
-
+	id: string
 }
 
 const TIERS = [
@@ -28,9 +28,22 @@ const TIERS = [
 	},
 ]
 
-export default function Widget({ }: Props): ReactElement {
+export default function Widget({ id }: Props): ReactElement {
 	const [active, setActive] = useState<string | number>(0);
 	const [recurring, setRecurring] = useState(false);
+	const [tiers, setTiers] = useState([]);
+
+	const getData = async () => {
+		const url = "/api/fb?id=" + id;
+		const res = await fetch(url);
+		const data = await res.json();
+		setTiers(data.data?.tiers || []);
+		console.log(data)
+	}
+
+	useEffect(() => {
+		getData();
+	}, [])
 
 	return (
 		<div className="flex items-stretch flex-col h-full bg-transparent p-4 rounded shadow-sm">
@@ -44,13 +57,13 @@ export default function Widget({ }: Props): ReactElement {
 					onClick={() => setRecurring(true)}
 				>Monthly</button>
 			</div>
-			<div className="grid grid-cols-3">
+			<div className="flex flex-row flex-wrap items-stretch">
 				{
-					TIERS.map((o, i) => {
+					tiers.map((o: any, i) => {
 						return (
 							<div
 								key={i}
-								className={`p-4 rounded bg-white shadow-sm ml-2 mr-2 mb-4 hover:shadow-md transition-all border-2 cursor-pointer ${active == i && "border-green-400 shadow:md"}`}
+								className={`p-4 basis-1/4 grow rounded bg-white shadow-sm ml-2 mr-2 mb-4 hover:shadow-md transition-all border-2 cursor-pointer ${active == i && "border-green-400 shadow:md"}`}
 								onClick={() => setActive(i)}
 							>
 								<strong className="text-xl">{o.name}</strong>
@@ -62,12 +75,12 @@ export default function Widget({ }: Props): ReactElement {
 				}
 				<div
 					onClick={() => setActive("custom")}
-					className={`p-4 rounded bg-white col-span-2 ml-2 shadow-md text-gray-600 auto-cols-max mr-4 flex text-2xl items-center transition justify-center border-2 ${active == "custom" ? "border-green-400" : "border-gray-200"}`}
+					className={`p-4 rounded mb-4 bg-white col-span-2 ml-2 shadow-md text-gray-600 auto-cols-max mr-4 flex text-2xl items-center transition justify-center border-2 ${active == "custom" ? "border-green-400" : "border-gray-200"}`}
 				>
 					<h1 className="text-2xl mr-2 text-align-middle">Or enter a custom amount</h1>
 					$<input type="number" className="w-20 p-2 bg-gray-50" placeholder={"5"} />
 				</div>
-				<button className="bg-green-400 text-white text-2xl rounded p-2 mr-2">Donate</button>
+				<button className="mb-4 grow bg-green-400 text-white text-2xl rounded p-2 mr-2">Donate</button>
 			</div>
 		</div>)
 }
