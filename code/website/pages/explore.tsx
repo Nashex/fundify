@@ -60,27 +60,24 @@ export default function Explore({ }: Props): ReactElement {
 
 		for (const charityDoc of res) {
 			const paymentQs = await getDocs(collection(firestore, "charities", charityDoc.id, "payments"));
+			charityDoc.payments = [];
 			paymentQs.forEach(paymentDoc => {
 				let data = paymentDoc.data();
-				charityDoc.payments = [
+				charityDoc.payments.push(
 					{ id: paymentDoc.id, ...paymentDoc.data(), date: data.date.toDate(), } as any,
-					charityDoc.payments,
-				]
-
+				)
 			});
 		}
 
 		for (const charityDoc of res) {
 			const donatorQs = await getDocs(collection(firestore, "charities", charityDoc.id, "donators"));
+			charityDoc.donators = [];
 			donatorQs.forEach(donatorDoc => {
-				charityDoc.donators = [
-					{ id: donatorDoc.id, ...donatorDoc.data() } as any,
-					charityDoc.donators,
-				]
+				charityDoc.donators.push(
+					{ id: donatorDoc.id, ...donatorDoc.data() } as any
+				)
 			});
 		}
-
-		console.log(res);
 
 		setCharities(res);
 		setLoading(false);
@@ -90,49 +87,7 @@ export default function Explore({ }: Props): ReactElement {
 		<div>
 			<Header />
 			<div className="max-w-7xl mx-auto text-center">
-				<h1 className="text-3xl font-bold text-gray-800 mb-2 px-10 mt-10">Our top picks for the
-					<Menu width={100} >
-						<Menu.Target>
-							<Button onClick={() => setFlip(!flip)} className="text-green-400 text-3xl underline font-bold w-fit px-2 h-10 hover:bg-slate-100"> {drop} </Button>
-						</Menu.Target>
-						<Menu.Dropdown className="border-0 font-bold">
-							{
-								options.map((o, i) => {
-									return (
-										<div key={i}>
-											{o != drop ?
-												<Menu.Item className="text-2xl text-center" onClick={() => setDrop(o)}>{o}</Menu.Item>
-												: null}
-										</div>
-									)
-								})
-							}
-						</Menu.Dropdown>
-					</Menu>
-				</h1>
-				<div className="flex flex-row px-10 w-full flex-wrap">
-					{
-						charities.map((o, i) => {
-							let totalD = o.donators?.filter(onlyUnique);
-							let totalR = o.payments?.reduce((a, b) => b ? +a + b?.amount : +a, 0);
-							let pastDate = new Date();
-							pastDate.setDate(today.getDate() - (timeNumber as unknown as any).get(drop));
-							let ActiveDonators = o.payments?.reduce((a, b) => b && b.date > pastDate ? +a + 1 : +a, 0)
-							if (ActiveDonators / totalD?.length > 0.6) {
-								return (
-									<div key={i} className="bg-white rounded-lg hover:cursor-pointer p-4 min-w-[33%] max-w-[33%]">
-										<CharityScroll name={o.name} description={o.desc} totalRaised={totalR} totalDonators={totalD.length} />
-									</div>
-								)
-							} else {
-								return (
-									<></>
-								)
-							}
-						})
-					}
-				</div>
-				<h1 className="text-3xl font-bold text-gray-800 mt-10 mb-2 px-10">Fastest growing charities of the past
+				<h1 className="text-3xl font-bold text-gray-800 mt-10 mb-2 px-10">Trending this 
 					<Menu width={100} >
 						<Menu.Target>
 							<Button onClick={() => setFlip(!flip)} className="text-green-400 text-3xl underline font-bold w-fit px-2 h-10 hover:bg-slate-100"> {drop2} </Button>
@@ -174,7 +129,7 @@ export default function Explore({ }: Props): ReactElement {
 						})
 					}
 				</div>
-				<h1 className="text-3xl font-bold text-gray-800 mt-10 mb-2 px-10">A list of all charities that use our site</h1>
+				<h1 className="text-3xl font-bold text-gray-800 mt-10 mb-2 px-10">All Organizations</h1>
 				<div className="flex flex-row px-10 flex-wrap w-full">
 					{
 						charities.map((o, i) => {
