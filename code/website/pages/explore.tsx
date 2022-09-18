@@ -1,10 +1,14 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useState, useEffect } from 'react'
 import Footer from '../components/shell/Footer'
 import Header from '../components/shell/Header'
 import { Menu, Button, Text, Autocomplete, createStyles } from '@mantine/core';
 import CharityScroll from '../components/shell/CharityScroll'
 import { FaChevronDown, FaChevronRight } from "react-icons/fa";
 import { IconSearch } from '@tabler/icons';
+import { Charity, Profile, Tier, Payment } from '../types/types';
+import { doc, documentId, getDoc, getDocs, query, where, collection } from 'firebase/firestore';
+import { firestore } from '../firebase';
+import ModalBlock from "../components/widget/ModalBlock"
 import { TbChevronDown } from 'react-icons/tb';
 
 const useStyles = createStyles((theme) => ({
@@ -16,8 +20,11 @@ const useStyles = createStyles((theme) => ({
 	  marginLeft: 80,
 	  width: "90%",
 	},
-  }));
+}));
 
+const onlyUnique = (value: any, index: any, self: any) => {
+	return self.indexOf(value) === index && value !== undefined;
+}
 
 interface Props {
 
@@ -25,7 +32,9 @@ interface Props {
 
 const options = ["week", "month", "year"]
 
-const charities = [
+const timeNumber = new Map([["week", 7], ["month", 30], ["year", 365]])
+
+const charitiess = [
 	{
 		name: "Josh's JHU Jewish Jfoundation",
 		description: "Making Rhymes for the JHU Hillel every week.",
@@ -93,8 +102,57 @@ const charities = [
 export default function Explore({ }: Props): ReactElement {
 	const [drop, setDrop] = useState("week");
 	const [flip, setFlip] = useState(false);
+	const [charities, setCharities] = useState<Charity[]>([]);
+	const [loading, setLoading] = useState(false);
 	const [value, setValue] = useState('');
 	const { classes } = useStyles();
+	const today = new Date();
+
+	useEffect(() => {
+		getCharities();
+	}, [])
+
+	const getCharities = async () => {
+		setLoading(true);
+		const charityRef = collection(firestore, "charities");
+		const qS = await getDocs(charityRef);
+		const res: Charity[] = [];
+		qS.forEach(async doc =>{
+			const data = doc.data();
+			res.push({
+				id: doc.id,
+				...data as any
+			})
+		})
+
+		for (const charityDoc of res) {
+			const paymentQs = await getDocs(collection(firestore, "charities", charityDoc.id, "payments"));
+			paymentQs.forEach(paymentDoc => {
+				let data = paymentDoc.data();
+				charityDoc.payments = [
+					{ id: paymentDoc.id, ...paymentDoc.data(), date: data.date.toDate(),} as any, 
+					charityDoc.payments,
+				]
+				
+			});
+		}
+
+		for (const charityDoc of res) {
+			const donatorQs = await getDocs(collection(firestore, "charities", charityDoc.id, "donators"));
+			donatorQs.forEach(donatorDoc => {
+				charityDoc.donators = [
+					{ id: donatorDoc.id, ...donatorDoc.data() } as any,
+					charityDoc.donators,
+				]
+			});
+		}
+
+		console.log(res);
+
+		setCharities(res);
+		setLoading(false);
+	}
+
 	return (
 		<div>
 			<Header />
@@ -103,9 +161,7 @@ export default function Explore({ }: Props): ReactElement {
 					<Menu width={100} >
 						<Menu.Target>
 							<Button onClick={() => setFlip(!flip)} className="text-green-400 text-3xl font-bold w-fit px-2 h-10 hover:bg-slate-100"> {drop} {
-								
 									<TbChevronDown size={20} className={`mt-2 self-start ${!flip ? "rotate-90" : ""} transition-all`}/>
-								
 							} </Button> 
 						</Menu.Target>
 						<Menu.Dropdown className="border-0 font-bold">
@@ -123,13 +179,18 @@ export default function Explore({ }: Props): ReactElement {
 						</Menu.Dropdown>
 					</Menu>
 				</h1>
-				<div className="flex flex-row px-10 overflow-x-auto w-fit">
+				<div className="flex flex-row px-10 w-fit flex-wrap">
 					{
 						charities.map((o, i) => {
+							let totalD = o.donators?.filter(onlyUnique);
+							let totalR = o.payments?.reduce((a, b) => b ? +a + b?.amount : +a, 0);
+							let pastDate = new Date();
+							pastDate.setDate(today.getDate() - timeNumber.get(drop));
+							let recentRaised = o.payments?.reduce((a, b) => b && b.date > pastDate ? +a + b?.amount : +a, 0)
 							return (
-								<div key={i} className="bg-white rounded-lg cursor-pointer p-4 shrink self-stretch h-full basis 1/3">
-									{o.stats[drop].donatorGained / o.stats.totalDonators > 0.4 ?
-										<CharityScroll name={o.name} description={o.description} totalRaised={o.stats.totalRaised} totalDonators={o.stats.totalDonators} />
+								<div key={i} className="bg-white rounded-lg cursor-pointer p-4 min-w-[33%] max-w-[33%]">
+									{recentRaised / totalD?.length > 0.4 ?
+										<CharityScroll name={o.name} description={o.desc} totalRaised={totalR} totalDonators={totalD.length} />
 										: null}
 								</div>
 							)
@@ -146,12 +207,14 @@ export default function Explore({ }: Props): ReactElement {
 				value={value}
 				onChange={setValue}
 			/>
-				<div className="flex flex-row px-10 overflow-x-scroll w-fit">
+				<div className="flex flex-row px-10 flex-wrap w-fit">
 					{
 						charities.map((o, i) => {
+							let totalD = o.donators?.filter(onlyUnique).length;
+							let totalR = o.payments?.reduce((a, b) => b ? +a + b.amount : +a, 0);
 							return (
-								<div key={i} className="min-w-[33%] bg-white rounded-lg cursor-pointer p-4">
-									<CharityScroll name={o.name} description={o.description} totalRaised={o.stats.totalRaised} totalDonators={o.stats.totalDonators} />
+								<div key={i} className="min-w-[33%] max-w-[33%] bg-white rounded-lg cursor-pointer p-4">
+									<CharityScroll name={o.name} description={o.desc} totalRaised={totalR ? totalR : 0} totalDonators={totalD ? totalD : 0} />
 								</div>
 							)
 						})
