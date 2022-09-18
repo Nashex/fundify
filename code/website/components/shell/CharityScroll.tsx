@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import { TbUsers } from 'react-icons/tb'
+import WidgetModal from '../widget/WidgetModal'
 
 interface Props {
     name: string,
@@ -29,6 +30,7 @@ export default function CharityScroll({name, description, totalRaised, totalDona
                         <p className="text-gray-400 text-center">Donators</p>
                     </div>
                 </div>
+                <WidgetModal buttonText = {"Donate"}/>
             </div>
         </div>
     )
