@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import { TbUsers } from 'react-icons/tb'
+import WidgetModal from '../widget/WidgetModal'
 
 interface Props {
     name: string,
@@ -10,7 +11,7 @@ interface Props {
 
 export default function CharityScroll({name, description, totalRaised, totalDonators }: Props): ReactElement {
     return (
-        <div className="basis-1/3 min-w-[33%] bg-white rounded-lg shadow-md hover:shadow-2xl cursor-pointer p-4 mx-2">
+        <div className="basis-1/3 min-w-[33%] bg-white rounded-lg shadow-md hover:shadow-lg hover:cursor-pointer p-4 mx-2">
             <div className="my-2">
                 <strong className="text-2xl text-green-400 min-h-full font-medium">{name}</strong>
                 <p className="text-lg text-gray-600">{description}</p>
@@ -29,6 +30,7 @@ export default function CharityScroll({name, description, totalRaised, totalDona
                         <p className="text-gray-400 text-center">Donators</p>
                     </div>
                 </div>
+                <WidgetModal buttonText = {"Donate"}/>
             </div>
         </div>
     )

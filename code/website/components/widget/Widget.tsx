@@ -38,6 +38,7 @@ export default function Widget({ id }: Props): ReactElement {
 		const res = await fetch(url);
 		const data = await res.json();
 		setTiers(data.data?.tiers || []);
+		console.log(data)
 	}
 
 	useEffect(() => {
@@ -74,7 +75,7 @@ export default function Widget({ id }: Props): ReactElement {
 				}
 				<div
 					onClick={() => setActive("custom")}
-					className={`p-4 grow mb-4 rounded bg-white col-span-2 ml-2 shadow-md text-gray-600 shadow-sm auto-cols-max mr-4 flex text-2xl items-center transition justify-center border-2 ${active == "custom" ? "border-green-400" : "border-gray-200"}`}
+					className={`p-4 rounded mb-4 bg-white col-span-2 ml-2 shadow-md text-gray-600 auto-cols-max mr-4 flex text-2xl items-center transition justify-center border-2 ${active == "custom" ? "border-green-400" : "border-gray-200"}`}
 				>
 					<h1 className="text-2xl mr-2 text-align-middle">Or enter a custom amount</h1>
 					$<input type="number" className="w-20 p-2 bg-gray-50" placeholder={"5"} />

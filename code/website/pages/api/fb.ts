@@ -28,7 +28,6 @@ export default async function handler(
   const db = getFirestore();
   const charity = await db.collection("charities").doc(id).get();
   const tierSnapshot = await db.collection("charities").doc(id).collection("tiers").get();
-
   let tiers: any = [];
   tierSnapshot.forEach((doc: any) => {
     tiers = [{ id: doc.id, ...doc.data() }, ...tiers]

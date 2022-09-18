@@ -81,7 +81,7 @@ export default function LinearOverTime({ charity, title, y, average }: Props) {
     };
 
     return (
-        <div className="flex flex-col bg-white border-[.5px] border-slate-400 rounded-md p-4 h-fit mr-2">
+        <div className="flex flex-col bg-white border-[.5px] border-slate-400 rounded-md p-4 h-fit mr-2 mb-1">
             <div className="flex flex-row items-center place-content-between">
                 <div className="justify-start">
                     <h1 className="text-lg">{title}</h1>
