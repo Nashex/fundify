@@ -9,19 +9,19 @@ import Widget from '../components/widget/Widget';
 
 const ITEMS = [
     {
-        icon: <TbHeartHandshake color="white" size={20} />,
-        title: "Free to use.",
-        desc: "It costs no money to use this."
+        icon: <TbHeartHandshake color="white" size={25} />,
+        title: "Built for collaboration",
+        desc: "With no overhead cost and an open source design, fundify is built for sharing."
     },
     {
-        icon: <TbChevronsUp color="white" size={20} />,
-        title: "Easy to implement",
-        desc: "It is not difficult to implement."
+        icon: <TbChevronsUp color="white" size={25} />,
+        title: "Quick to deploy",
+        desc: "Ease of use enables our collaborators to get up and running faster than ever."
     },
     {
-        icon: <TbChartArrowsVertical color="white" size={20} />,
-        title: "Optimized to your customers.",
-        desc: "It is not optimized for people who aren't your customers."
+        icon: <TbChartArrowsVertical color="white" size={25} />,
+        title: "Optimized for you",
+        desc: "Do not confuse ease of use for lack of effectiveness; we help you understand your donors."
     },
 ];
 
