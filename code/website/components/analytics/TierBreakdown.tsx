@@ -10,7 +10,6 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 type Props = {
     charity: Charity,
-    title: string,
     recur: boolean,
 }
 
@@ -62,14 +61,37 @@ const recurData = {
     ],
 };
 
-export default function TierBreakdown({ charity, title, recur }: Props) {
+export default function TierBreakdown({ charity, recur }: Props) {
     const [hidden, setHidden] = useState(true)
+    const [type, setType] = useState("One-Time")
 
     return (
         <div className="flex flex-col bg-white border-[.5px] border-slate-400 rounded-md p-2 mb-1 h-fit mr-1">
             <div className="flex flex-row items-center place-content-between">
                 <div className="justify-start">
-                    <h1 className="text-lg">{title}</h1>
+                    <div className="flex flex-row items-baseline">
+                        {
+                            type == "One-Time" ?
+                                <div className = "flex flex-row">
+                                    <div className="text-lg text-green-400 font-bold"> One-Time </div>
+                                    <div className="text-lg text-slate-400 font-normal">&nbsp;|&nbsp;</div>
+                                    <div className="text-lg text-slate-400 font-normal hover:cursor-pointer" onClick={() => { setType("Recurring") }}>Recurring</div>
+                                    <div className="text-lg text-black font-normal p-0 pl-1">
+                                        Donations by Tier
+                                    </div>
+                                </div>
+                                :
+                                <div className = "flex flex-row">
+                                    <div className="text-lg text-slate-400 font-normal hover:cursor-pointer" onClick={() => { setType("One-Time") }}> One-Time </div>
+                                    <div className="text-lg text-slate-400 font-normal">&nbsp;|&nbsp;</div>
+                                    <div className="text-lg text-green-400 font-bold">Recurring</div>
+                                    <div className="text-lg text-black font-normal p-0 pl-1">
+                                        Donations by Tier
+                                    </div>
+                                </div>
+
+                        }
+                    </div>
                 </div>
                 <div className="ml-1 justify-end hover:cursor-pointer">
                     {
@@ -84,7 +106,7 @@ export default function TierBreakdown({ charity, title, recur }: Props) {
                 hidden ?
                     <></>
                     :
-                    recur ?
+                    type == "Recurring" ?
                         <div className="max-w-[700px] max-h-[600px]">
                             <Doughnut data={recurData} width={500} height={500} options={{ maintainAspectRatio: true }} />
                         </div>

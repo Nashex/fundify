@@ -27,13 +27,13 @@ ChartJS.register(
 
 type Props = {
     charity: Charity,
-    title: string,
-    y: string,
-    average: boolean
 }
 
-export default function LinearOverTime({ charity, title, y, average }: Props) {
+const options = ["dollars", "donations", "average"]
+
+export default function LinearOverTime({ charity, }: Props) {
     const [hidden, setHidden] = useState(true)
+    const [selection, setSelection] = useState("dollars")
 
     // Define variables pertaining to the charts
     const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
@@ -84,7 +84,45 @@ export default function LinearOverTime({ charity, title, y, average }: Props) {
         <div className="flex flex-col bg-white border-[.5px] border-slate-400 rounded-md p-4 h-fit mr-2 mb-1">
             <div className="flex flex-row items-center place-content-between">
                 <div className="justify-start">
-                    <h1 className="text-lg">{title}</h1>
+                    <div className="flex flex-row items-baseline">
+                        {
+                            selection == options[0] ?
+                                <div className="flex flex-row">
+                                    <div className="text-lg text-green-400 font-bold"> Dollars </div>
+                                    <div className="text-lg text-slate-400 font-normal">&nbsp;|&nbsp;</div>
+                                    <div className="text-lg text-slate-400 font-normal hover:cursor-pointer" onClick={() => { setSelection("donations") }}>Donations</div>
+                                    <div className="text-lg text-slate-400 font-normal">&nbsp;|&nbsp;</div>
+                                    <div className="text-lg text-slate-400 font-normal hover:cursor-pointer" onClick={() => { setSelection("average") }}>Average Dollars</div>
+                                    <div className="text-lg text-black font-normal p-0 pl-1">
+                                        over Time
+                                    </div>
+                                </div>
+                                :
+                                selection == options[1] ?
+                                    <div className="flex flex-row">
+                                        <div className="text-lg text-slate-400 font-normal hover:cursor-pointer" onClick={() => { setSelection("dollars") }}> Dollars </div>
+                                        <div className="text-lg text-slate-400 font-normal">&nbsp;|&nbsp;</div>
+                                        <div className="text-lg text-green-400 font-bold">Donations</div>
+                                        <div className="text-lg text-slate-400 font-normal">&nbsp;|&nbsp;</div>
+                                        <div className="text-lg text-slate-400 font-normal hover:cursor-pointer" onClick={() => { setSelection("average") }}> Average Dollars </div>
+                                        <div className="text-lg text-black font-normal p-0 pl-1">
+                                            over Time
+                                        </div>
+                                    </div>
+                                    :
+                                    <div className="flex flex-row">
+                                        <div className="text-lg text-slate-400 font-normal hover:cursor-pointer" onClick={() => { setSelection("dollars") }}> Dollars </div>
+                                        <div className="text-lg text-slate-400 font-normal">&nbsp;|&nbsp;</div>
+                                        <div className="text-lg text-slate-400 font-normal hover:cursor-pointer" onClick={() => { setSelection("donations") }}> Donations </div>
+                                        <div className="text-lg text-slate-400 font-normal">&nbsp;|&nbsp;</div>
+                                        <div className="text-lg text-green-400 font-bold">Average Dollars</div>
+                                        <div className="text-lg text-black font-normal p-0 pl-1">
+                                            over Time
+                                        </div>
+                                    </div>
+
+                        }
+                    </div>
                 </div>
                 <div className="ml-1 justify-end hover:cursor-pointer">
                     {
@@ -99,20 +137,21 @@ export default function LinearOverTime({ charity, title, y, average }: Props) {
                 hidden ?
                     <></>
                     :
-                    average == true ?
-                    <div className="max-w-[700px] max-h-[600px]">
-                        <Line data={avgGift} width = {500} height = {300} options = {{ maintainAspectRatio: true }} />
-                    </div>
-                    :
-                    y == 'donation' ?
-                    <div className="max-w-[700px] max-h-[600px]">
-                        <Line data={donationData} width = {500} height = {300} options = {{ maintainAspectRatio: true }} />
-                    </div>
-                    :
-                    <div className="max-w-[700px] max-h-[600px]">
-                        <Line data={dollarsData} width = {500} height = {300} options = {{ maintainAspectRatio: true }} />
-                    </div>
+                    selection == options[0] ?
+                        <div className="max-w-[700px] max-h-[600px]">
+                            <Line data={dollarsData} width={500} height={300} options={{ maintainAspectRatio: true }} />
+                        </div>
+                        :
+                        selection == options[1] ?
+                            <div className="max-w-[700px] max-h-[600px]">
+                                <Line data={donationData} width={500} height={300} options={{ maintainAspectRatio: true }} />
+                            </div>
+                            :
+                            <div className="max-w-[700px] max-h-[600px]">
+                                <Line data={avgGift} width={500} height={300} options={{ maintainAspectRatio: true }} />
+                            </div>
+
             }
-        </div>
+        </div >
     )
 }
