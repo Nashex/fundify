@@ -1,6 +1,7 @@
 import { Navbar as MantineNavbar } from '@mantine/core';
 import Link from 'next/link';
 import { TbChevronRight, TbHome, TbLeaf } from 'react-icons/tb';
+import { VscGraph } from 'react-icons/vsc'
 import { useAuth } from '../../context/AuthProvider';
 
 const NAV_ITEMS = [
@@ -14,6 +15,11 @@ const NAV_ITEMS = [
         name: "Charities",
         icon: <TbLeaf />
     },
+    {
+        link: "/dashboard/analytics",
+        name: "Analytics",
+        icon: <VscGraph />
+    }
 ]
 
 function Navbar() {

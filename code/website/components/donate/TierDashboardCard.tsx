@@ -109,8 +109,9 @@ export default function TierDashboard({ id, charity, name, desc, amount, type, c
 				<NumberInput
 					placeholder="The amount to purchase this tier"
 					className="mt-4"
-					formatter={(val) => `$${val}`}
-					label="Donation amount"
+					label="Donation amount (USD)"
+					precision={2}
+					prefix={"$"}
 					value={form["amount"]}
 					maxLength={200}
 					onChange={(val: number) => updateField("amount", val)}
