@@ -9,7 +9,7 @@ type Props = {
     average: boolean
 }
 
-export default function LinearOverTime({ charity, title, y, average }: Props) {
+export default function TierBreakdown({ charity, title, y, average }: Props) {
     const [hidden, setHidden] = useState(true)
 
     return (
