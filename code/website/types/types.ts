@@ -3,7 +3,9 @@ export interface Charity {
     id: string,
     name: string,
     desc: string,
-    tiers: Tier[]
+    tiers: Tier[],
+    payments: Payment[],
+    donators: string[]
 }
 
 export interface Tier {
@@ -12,6 +14,13 @@ export interface Tier {
     name: string
     desc: string
     type: "monthly" | "one-time"
+    amount: number
+}
+
+export interface Payment {
+    id?: string
+    date: Date
+    email: string
     amount: number
 }
 
